@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import './ProductList.css';
@@ -61,13 +61,29 @@ const ProductList = ({ selectedCategory }) => {
             description: 'Sample product description',
             imageUrl: './images/img7.jpg', 
         },
-        
     ];
 
     const { dispatch } = useCart();
+    
+    // Add quantity state for each product
+    const [quantities, setQuantities] = useState(
+        products.reduce((acc, product) => {
+            acc[product._id] = 1; // Initialize all quantities to 1
+            return acc;
+        }, {})
+    );
+
+    const handleQuantityChange = (e, productId) => {
+        const quantity = Math.max(1, parseInt(e.target.value) || 1); // Ensure quantity is at least 1
+        setQuantities(prevQuantities => ({
+            ...prevQuantities,
+            [productId]: quantity,
+        }));
+    };
 
     const addToCart = (product) => {
-        dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity: 1 } });
+        const quantity = quantities[product._id]; // Get quantity from state
+        dispatch({ type: 'ADD_TO_CART', product: { ...product, quantity } });
     };
 
     const filteredProducts = selectedCategory
@@ -87,6 +103,19 @@ const ProductList = ({ selectedCategory }) => {
                                 <h3>{product.name}</h3>
                                 <p>{product.description}</p>
                                 <p>${product.price}</p>
+
+                                {/* Quantity Input */}
+                                <div className="quantity-container">
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        value={quantities[product._id]}
+                                        onChange={(e) => handleQuantityChange(e, product._id)}
+                                        className="quantity-input"
+                                    />
+                                    <span>Qty</span>
+                                </div>
+
                                 <Link to={`/product/${product._id}`} className="view-details-button">View Details</Link>
                                 <button onClick={() => addToCart(product)} className="add-to-cart-button">Add to Cart</button>
                             </div>

@@ -28,12 +28,14 @@ function App() {
                     <main>
                         <aside className="sidebar">
                             <CategoryList onSelectCategory={setSelectedCategory} />
+                            
                         </aside>
                         <section className="content">
                             <Routes>
                                 <Route 
                                     path="/" 
                                     element={<ProductList selectedCategory={selectedCategory} />} 
+                                    
                                 />
                                 <Route path="/product/:id" element={<ProductDetails />} />
                                 <Route path="/checkout" element={<Checkout />} />
