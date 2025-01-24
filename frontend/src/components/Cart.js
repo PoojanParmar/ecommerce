@@ -6,6 +6,13 @@ import './Cart.css';
 const Cart = () => {
     const { cart, dispatch } = useCart();
 
+    // Function to handle quantity update
+    const updateQuantity = (productId, quantity) => {
+        if (quantity < 1) return; // Prevent going below 1
+        dispatch({ type: 'ADJUST_QUANTITY', productId, quantity });
+    };
+
+    // Function to remove an item from the cart
     const removeFromCart = (productId) => {
         dispatch({ type: 'REMOVE_FROM_CART', productId });
     };
@@ -23,13 +30,39 @@ const Cart = () => {
                             <div className="cart-item-details">
                                 <h3>{item.name}</h3>
                                 <p>Price: ${item.price}</p>
-                                <p>Quantity: {item.quantity}</p> {/* Display quantity here */}
-                                <p>Total: ${item.price * item.quantity}</p> {/* Show total price for the item */}
-                                <button onClick={() => removeFromCart(item._id)} className="remove-from-cart-button">Remove</button>
+
+                                {/* Quantity Controls */}
+                                <div className="quantity-container">
+                                    <button
+                                        onClick={() => updateQuantity(item._id, item.quantity - 1)}
+                                        className="quantity-button"
+                                    >
+                                        -
+                                    </button>
+                                    <input
+                                        type="number"
+                                        value={item.quantity}
+                                        min="1"
+                                        onChange={(e) => updateQuantity(item._id, parseInt(e.target.value) || 1)}
+                                        className="quantity-input"
+                                    />
+                                    <button
+                                        onClick={() => updateQuantity(item._id, item.quantity + 1)}
+                                        className="quantity-button"
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                                <p>Total: ${item.price * item.quantity}</p>
+                                <button onClick={() => removeFromCart(item._id)} className="remove-from-cart-button">
+                                    Remove
+                                </button>
                             </div>
                         </div>
                     ))}
-                    <Link to="/checkout" className="checkout-button">Go to Checkout</Link>
+                    <Link to="/checkout" className="checkout-button">
+                        Go to Checkout
+                    </Link>
                 </div>
             )}
         </div>
