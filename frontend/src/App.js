@@ -10,6 +10,8 @@ import AdminDashboard from './components/AdminDashboard';
 import OrderConfirmation from './components/OrderConfirmation'; 
 import { CartProvider } from './CartContext';
 import './App.css';
+import AccountPage from './components/AccountPage';
+
 
 function App() {
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -37,10 +39,12 @@ function App() {
                                     element={<ProductList selectedCategory={selectedCategory} />} 
                                     
                                 />
+                                 <Route path="/account" element={<AccountPage />} />
                                 <Route path="/product/:id" element={<ProductDetails />} />
                                 <Route path="/checkout" element={<Checkout />} />
                                 <Route path="/admin/login" element={<AdminLogin />} />
                                 <Route path="/admin/dashboard" element={<AdminDashboard />} />
+                                <Route path="/account" element={<AccountPage />} />
                                 <Route path="/order-confirmation/:id" element={<OrderConfirmation />} /> {/* Add Order Confirmation Route */}
                             </Routes>
                         </section>
