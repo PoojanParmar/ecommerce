@@ -19,9 +19,12 @@ const Cart = () => {
 
     return (
         <div className="cart">
-            <h2>Shopping Cart</h2>
+            <h2>Your Shopping Cart</h2>
             {cart.length === 0 ? (
-                <p>No items in cart.</p>
+                <div className="empty-cart">
+                    <p>Your cart is empty. Add some items to get started!</p>
+                    <Link to="/" className="continue-shopping">Continue Shopping</Link>
+                </div>
             ) : (
                 <div className="cart-items-container">
                     {cart.map((item) => (
@@ -29,7 +32,7 @@ const Cart = () => {
                             <img src={item.imageUrl} alt={item.name} className="cart-item-image" />
                             <div className="cart-item-details">
                                 <h3>{item.name}</h3>
-                                <p>Price: ${item.price}</p>
+                                <p className="cart-item-price">${item.price}</p>
 
                                 {/* Quantity Controls */}
                                 <div className="quantity-container">
@@ -53,16 +56,19 @@ const Cart = () => {
                                         +
                                     </button>
                                 </div>
-                                <p>Total: ${item.price * item.quantity}</p>
+                                <p className="cart-item-total">Total: ${item.price * item.quantity}</p>
                                 <button onClick={() => removeFromCart(item._id)} className="remove-from-cart-button">
                                     Remove
                                 </button>
                             </div>
                         </div>
                     ))}
-                    <Link to="/checkout" className="checkout-button">
-                        Go to Checkout
-                    </Link>
+
+                    {/* Cart Summary */}
+                    <div className="cart-summary">
+                        <p><strong>Total Price:</strong> ${cart.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}</p>
+                        <Link to="/checkout" className="checkout-button">Proceed to Checkout</Link>
+                    </div>
                 </div>
             )}
         </div>
