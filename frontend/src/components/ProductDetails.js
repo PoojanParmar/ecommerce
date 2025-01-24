@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import CommentsPage from './CommentsPage';  // Import the CommentsPage component
 import './ProductDetails.css';
 
-const ProductDetails = () => {
+const ProductDetails = ({ user }) => {  // Assuming `user` is passed from the parent component
     const { id } = useParams();
     const [product, setProduct] = useState(null);
 
@@ -30,7 +31,7 @@ const ProductDetails = () => {
                 category: 'Street Photography',
                 price: 30.0,
                 description: 'This is yet another sample product',
-                imageUrl: '/images/img3.jpg', 
+                imageUrl: '/images/img3.jpg',
             },
             {
                 _id: '4',
@@ -38,7 +39,7 @@ const ProductDetails = () => {
                 category: 'Street Photography',
                 price: 40.0,
                 description: 'Sample product description',
-                imageUrl: '/images/img4.jpg', 
+                imageUrl: '/images/img4.jpg',
             },
             {
                 _id: '5',
@@ -46,7 +47,7 @@ const ProductDetails = () => {
                 category: 'Street Photography',
                 price: 50.0,
                 description: 'Sample product description',
-                imageUrl: '/images/img5.jpg', 
+                imageUrl: '/images/img5.jpg',
             },
             {
                 _id: '6',
@@ -54,7 +55,7 @@ const ProductDetails = () => {
                 category: 'Street Photography',
                 price: 60.0,
                 description: 'Sample product description',
-                imageUrl: '/images/img6.jpg', 
+                imageUrl: '/images/img6.jpg',
             },
             {
                 _id: '7',
@@ -62,12 +63,13 @@ const ProductDetails = () => {
                 category: 'Street Photography',
                 price: 70.0,
                 description: 'Sample product description',
-                imageUrl: './images/img7.jpg', 
+                imageUrl: './images/img7.jpg',
             },
         ];
 
-        const product = products.find(p => p._id === id);
-        setProduct(product);
+        // Find the product by ID from the list
+        const foundProduct = products.find(p => p._id === id);
+        setProduct(foundProduct);
     }, [id]);
 
     if (!product) {
@@ -80,6 +82,12 @@ const ProductDetails = () => {
             <h2>{product.name}</h2>
             <p>{product.description}</p>
             <p>${product.price}</p>
+
+            {/* Comments section */}
+            <div className="comments-section">
+                <h3>Leave a Comment</h3>
+                <CommentsPage product={product} user={user} /> {/* Pass the product and user as props to CommentsPage */}
+            </div>
         </div>
     );
 };

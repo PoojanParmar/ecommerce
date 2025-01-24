@@ -9,7 +9,11 @@ const AccountForm = ({ onSave, existingUserData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
     // Validation for password match
     if (password !== confirmPassword) {
       alert('Passwords do not match!');

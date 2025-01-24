@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCart } from '../CartContext';
 import './ProductList.css';
 
-const ProductList = ({ selectedCategory }) => {
+const ProductList = ({ selectedCategory, user }) => {
     const products = [
         {
             _id: '1',
@@ -11,7 +11,7 @@ const ProductList = ({ selectedCategory }) => {
             category: 'Category 1',
             price: 10.0,
             description: 'This is a sample product',
-            imageUrl: '/images/img1.jpg', 
+            imageUrl: '/images/img1.jpg',
         },
         {
             _id: '2',
@@ -27,7 +27,7 @@ const ProductList = ({ selectedCategory }) => {
             category: 'Category 1',
             price: 30.0,
             description: 'This is yet another sample product',
-            imageUrl: '/images/img3.jpg', 
+            imageUrl: '/images/img3.jpg',
         },
         {
             _id: '4',
@@ -35,7 +35,7 @@ const ProductList = ({ selectedCategory }) => {
             category: 'Category 2',
             price: 40.0,
             description: 'Sample product description',
-            imageUrl: '/images/img4.jpg', 
+            imageUrl: '/images/img4.jpg',
         },
         {
             _id: '5',
@@ -43,7 +43,7 @@ const ProductList = ({ selectedCategory }) => {
             category: 'Category 1',
             price: 50.0,
             description: 'Sample product description',
-            imageUrl: '/images/img5.jpg', 
+            imageUrl: '/images/img5.jpg',
         },
         {
             _id: '6',
@@ -51,7 +51,7 @@ const ProductList = ({ selectedCategory }) => {
             category: 'Category 2',
             price: 60.0,
             description: 'Sample product description',
-            imageUrl: '/images/img6.jpg', 
+            imageUrl: '/images/img6.jpg',
         },
         {
             _id: '7',
@@ -59,13 +59,12 @@ const ProductList = ({ selectedCategory }) => {
             category: 'Category 1',
             price: 70.0,
             description: 'Sample product description',
-            imageUrl: './images/img7.jpg', 
+            imageUrl: './images/img7.jpg',
         },
     ];
 
     const { dispatch } = useCart();
-    
-    // Add quantity state for each product
+
     const [quantities, setQuantities] = useState(
         products.reduce((acc, product) => {
             acc[product._id] = 1; // Initialize all quantities to 1
@@ -116,8 +115,22 @@ const ProductList = ({ selectedCategory }) => {
                                     <span>Qty</span>
                                 </div>
 
-                                <Link to={`/product/${product._id}`} className="view-details-button">View Details</Link>
-                                <button onClick={() => addToCart(product)} className="add-to-cart-button">Add to Cart</button>
+                                {/* View Details Link */}
+                                <Link to={`/product/${product._id}`} className="view-details-button">
+                                    View Details
+                                </Link>
+
+                                {/* Add to Cart */}
+                                <button onClick={() => addToCart(product)} className="add-to-cart-button">
+                                    Add to Cart
+                                </button>
+
+                                {/* Link to Comment Page */}
+                                {user && user.purchasedProducts.includes(product._id) && (
+                                    <Link to={`/comments/${product._id}`} className="comment-link">
+                                        Leave a Comment
+                                    </Link>
+                                )}
                             </div>
                         </div>
                     ))}

@@ -12,6 +12,7 @@ import { CartProvider } from './CartContext';
 import './App.css';
 import AccountPage from './components/AccountPage';
 
+
 function App() {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
