@@ -1,25 +1,18 @@
 import React, { useState } from 'react';
-import AccountForm from './AccountForm'; // Ensure this is correct
+import AccountForm from './AccountForm';
 
 const AccountPage = () => {
-  const [user, setUser] = useState(null); // Store logged-in user data (if available)
+  const [user, setUser] = useState(null); // Store user data
 
-  // Function to handle saving user data (new or updated)
+  // Save user data (new or updated)
   const saveAccountData = (userData) => {
-    if (user) {
-      // If user is logged in, update their information
-      alert('Account updated successfully!');
-      setUser({ ...user, ...userData });
-    } else {
-      // If no user, create a new account
-      alert('Account created successfully!');
-      setUser(userData);
-    }
+    setUser(userData);
+    alert('Account information saved successfully!');
   };
 
   return (
     <div>
-      <h1>Account</h1>
+      <h1>Your Account</h1>
       <AccountForm onSave={saveAccountData} existingUserData={user} />
       {user && (
         <div>

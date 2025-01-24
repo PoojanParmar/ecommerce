@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './AccountForm.css';
 
 const AccountForm = ({ onSave, existingUserData }) => {
   const [name, setName] = useState(existingUserData ? existingUserData.name : '');
@@ -10,7 +11,7 @@ const AccountForm = ({ onSave, existingUserData }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validation for password match
+    // Validate password match
     if (password !== confirmPassword) {
       alert('Passwords do not match!');
       return;
@@ -20,45 +21,61 @@ const AccountForm = ({ onSave, existingUserData }) => {
       name,
       email,
       address,
-      password,
+      password, // Password only used during account creation
     };
 
-    onSave(userData); // Assuming onSave is passed to save data
+    onSave(userData); // Calling the onSave function passed as a prop
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="account-form" onSubmit={handleSubmit}>
       <h2>{existingUserData ? 'Edit Your Account' : 'Create Account'}</h2>
+
+      <label>Name</label>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
+        required
       />
+
+      <label>Email</label>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your email"
+        required
       />
+
+      <label>Shipping Address</label>
       <input
         type="text"
         value={address}
         onChange={(e) => setAddress(e.target.value)}
         placeholder="Enter your address"
+        required
       />
+
+      <label>Password</label>
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Enter your password"
+        required={!existingUserData}
       />
+
+      <label>Confirm Password</label>
       <input
         type="password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
         placeholder="Confirm your password"
+        required={!existingUserData}
       />
+
       <button type="submit">{existingUserData ? 'Update Account' : 'Create Account'}</button>
     </form>
   );
