@@ -6,8 +6,8 @@ body {
   box-sizing: border-box;
 }
 
-/* Header Styling */
-.header {
+/* Navbar Styling */
+.navbar {
   background-color: #343a40;
   color: #fff;
   display: flex;
@@ -16,37 +16,53 @@ body {
   padding: 10px 20px;
 }
 
-.header-logo {
+.navbar-logo a {
+  color: #fff;
+  text-decoration: none;
   font-size: 1.8rem;
   font-weight: bold;
 }
 
-.header-search {
-  padding: 8px;
-  font-size: 1rem;
-  width: 250px;
-  border: none;
+.navbar-links {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin-left: 20px;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 5px 10px;
+}
+
+.navbar-links a:hover {
+  background-color: #007bff;
   border-radius: 5px;
 }
 
-.header-actions {
+.navbar-actions {
   display: flex;
   align-items: center;
 }
 
-.header-cart, .header-login-btn {
-  margin-left: 15px;
-  padding: 10px;
-  font-size: 1rem;
-  color: #fff;
+.navbar-login-btn {
   background-color: #007bff;
+  color: white;
+  padding: 10px 15px;
+  font-size: 1rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.header-cart:hover, .header-login-btn:hover {
+.navbar-login-btn:hover {
   background-color: #0056b3;
 }
 

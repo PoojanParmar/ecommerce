@@ -61,7 +61,7 @@ const CommentsPage = ({ product }) => {
       <form onSubmit={handleSubmit} className="comments-form">
         {/* Rating section (stars) */}
         <div className="rating">
-          <label>Rating:</label>
+          <label className='rate'>Rating:</label>
           {[1, 2, 3, 4, 5].map((star) => (
             <span
               key={star}
